@@ -13,10 +13,15 @@ body {
 main {
   display: flex;
 }
+.header, .footer{
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+
+}
 .content {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
   flex-grow: 1;
   background-color: #f1faee;
 }
@@ -26,8 +31,16 @@ main {
 }
 .print {
   display: flex;
+  justify-content: center;
+  flex-grow: 1;
   align-items: center;
 }
+.print img {
+    width: 150px;
+    height: 150px;
+}
+
+
 .alchemy-text {
   font-family: "Hammersmith One";
   font-size: 128px;

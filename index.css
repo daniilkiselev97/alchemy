@@ -1,0 +1,36 @@
+@font-face {
+  font-family: "Hammersmith One";
+  src: url(./assets/HammersmithOne-Regular.ttf);
+}
+html,
+body,
+main {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
+main {
+  display: flex;
+}
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  background-color: #f1faee;
+}
+.side-bar {
+  width: 260px;
+  background-color: rgba(168, 218, 220, 0.28);
+}
+.print {
+  display: flex;
+  align-items: center;
+}
+.alchemy-text {
+  font-family: "Hammersmith One";
+  font-size: 128px;
+  line-height: 128px;
+  color: rgba(29, 53, 87, 0.1);
+}

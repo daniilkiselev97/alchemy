@@ -8,11 +8,30 @@ main {
   height: 100%;
 }
 body {
+  font-family: "Hammersmith One";
   margin: 0;
 }
 main {
   display: flex;
 }
+
+.data-status{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: blueviolet;
+    visibility: hidden;
+}
+.data-status.visible {
+    visibility: visible;
+}
+
 .header, .footer{
     padding: 20px;
     display: flex;

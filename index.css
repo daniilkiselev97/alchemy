@@ -2,6 +2,13 @@
   font-family: "Hammersmith One";
   src: url(./assets/HammersmithOne-Regular.ttf);
 }
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html,
 body,
 main {
@@ -15,28 +22,28 @@ main {
   display: flex;
 }
 
-.data-status{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background-color: blueviolet;
-    visibility: hidden;
+.data-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: blueviolet;
+  visibility: hidden;
 }
 .data-status.visible {
-    visibility: visible;
+  visibility: visible;
 }
 
-.header, .footer{
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-
+.header,
+.footer {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 .content {
   display: flex;
@@ -45,8 +52,16 @@ main {
   background-color: #f1faee;
 }
 .side-bar {
+  padding: 32px 18px;
   width: 260px;
   background-color: rgba(168, 218, 220, 0.28);
+}
+.search-input {
+  padding: 10px 14px;
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 8px;
 }
 .print {
   display: flex;
@@ -55,14 +70,18 @@ main {
   align-items: center;
 }
 .print img {
-    width: 150px;
-    height: 150px;
+  width: 150px;
+  height: 150px;
 }
-
 
 .alchemy-text {
   font-family: "Hammersmith One";
   font-size: 128px;
   line-height: 128px;
   color: rgba(29, 53, 87, 0.1);
+}
+.material {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }

@@ -23,8 +23,11 @@ const getData = async () => {
     ]);
     setStatus(STATUS.done);
     STATE.formulas = res[0];
+    // console.log(res[0])
     STATE.images = res[1];
+    // console.log(res[1])
     STATE.names = res[2];
+    // console.log(res[2])
   } catch (error) {
     setStatus(STATUS.error);
     throw Error("Get data error");
@@ -44,12 +47,13 @@ const drawPage = () => {
   // console.log(ids)
   const primeIds = ids.filter((id) => {
     const value = STATE.formulas[id];
+    // console.log(value)
     return value.prime;
   });
   // console.log(primeIds)
   primeIds.forEach((id) => {
     const material = createMaterial(id);
-    document.querySelector('.elements').appendChild(material)
+    document.querySelector(".elements").appendChild(material);
   });
 };
 
@@ -61,9 +65,10 @@ const createMaterial = (id) => {
   const imgElement = document.createElement("img");
   const nameElement = document.createElement("div");
 
-  rootElement.classList.add("material");
+  rootElement.classList.add("material", "draggable");
+
   imgElement.classList.add("img");
-  imgElement.src = 'data:image/png;base64,' + img;
+  imgElement.src = "data:image/png;base64," + img;
   nameElement.classList.add("name");
   nameElement.textContent = name;
   rootElement.appendChild(imgElement);
@@ -71,11 +76,34 @@ const createMaterial = (id) => {
 
   return rootElement;
 };
-
+const initDragManager = () => {
+  DragManager.onDragCancel = function (dragObject) {
+    dragObject.avatar.rollback();
+    console.log(dragObject);
+  };
+  DragManager.onDragEnd = function (dragObject, dropElem) {
+    // console.log(document.querySelector('.side-bar').getBoundingClientRect())
+    // console.log(dragObject.avatar.getBoundingClientRect())
+    const avatarRect = dragObject.avatar.getBoundingClientRect();
+    const sideBarRect = document
+      .querySelector(".side-bar")
+      .getBoundingClientRect();
+    if (avatarRect.x > sideBarRect.x) {
+      dragObject.avatar.rollback();
+    }
+    // dragObject.elem.style.display = "none";
+    // dropElem.classList.add("computer-smile");
+    // setTimeout(function () {
+    //   dropElem.classList.remove("computer-smile");
+    // }, 200);
+    console.log(dragObject, dropElem);
+  };
+};
 const ready = async () => {
   await getData();
-  console.log(STATE);
+  // console.log(STATE);
   drawPage();
+  initDragManager();
 };
 ready();
 

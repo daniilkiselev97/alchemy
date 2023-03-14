@@ -85,3 +85,6 @@ main {
   align-items: center;
   gap: 10px;
 }
+.draggable {
+  cursor: pointer;
+}

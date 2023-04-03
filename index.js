@@ -12,6 +12,17 @@ const STATE = {
   dataStatus: STATUS.initial,
 };
 
+const DRUGSTATE = {
+  element: null,
+  offsetX: null,
+  offsetY: null,
+  matched: null,
+};
+const DOM = {
+  content: document.querySelector(".content"),
+  sideBar: document.querySelector(".side-bar"),
+};
+
 const getData = async () => {
   setStatus(STATUS.pending);
 
@@ -56,7 +67,26 @@ const drawPage = () => {
     document.querySelector(".elements").appendChild(material);
   });
 };
+function setPosition(element, left, top) {
+  element.style.left = left + "px";
+  element.style.top = top + "px";
+}
+function onDragStart(e) {
+  e.preventDefault();
+  const material = e.target.closest(".material");
+  if (DOM.sideBar.contains(material)) {
+    const rect = material.getBoundingClientRect();
+    const clone = createMaterial(material.dataset.materialId);
+    setPosition(clone, rect.left, rect.top);
+    DOM.content.appendChild(clone);
+    DRUGSTATE.element = clone;
+  } else {
+    DRUGSTATE.element = material;
+  }
 
+  DRUGSTATE.offsetX = e.offsetX;
+  DRUGSTATE.offsetY = e.offsetY;
+}
 const createMaterial = (id) => {
   const img = STATE.images[id];
   const name = STATE.names[id];
@@ -66,6 +96,10 @@ const createMaterial = (id) => {
   const nameElement = document.createElement("div");
 
   rootElement.classList.add("material", "draggable");
+  rootElement.draggable = true;
+
+  rootElement.ondragstart = onDragStart;
+  rootElement.dataset.materialId = id;
 
   imgElement.classList.add("img");
   imgElement.src = "data:image/png;base64," + img;
@@ -76,28 +110,55 @@ const createMaterial = (id) => {
 
   return rootElement;
 };
+
+function findMatchMaterial(e) {
+  const condidats = Array.from(DOM.content.querySelectorAll(".material"));
+  return condidats.find((el) => {
+    const rect = el.getBoundingClientRect();
+    if (
+      e.pageX > rect.left &&
+      e.pageX < rect.right &&
+      e.pageY > rect.top &&
+      e.pageY < rect.bottom &&
+      el!== DRUGSTATE.element
+    ) {
+      return true
+    } 
+  });
+}
+function getMaterialId(el){
+  return +el.dataset.materialId
+}
+function findCombination(id1, id2){
+
+}
 const initDragManager = () => {
-  DragManager.onDragCancel = function (dragObject) {
-    dragObject.avatar.rollback();
-    console.log(dragObject);
-  };
-  DragManager.onDragEnd = function (dragObject, dropElem) {
-    // console.log(document.querySelector('.side-bar').getBoundingClientRect())
-    // console.log(dragObject.avatar.getBoundingClientRect())
-    const avatarRect = dragObject.avatar.getBoundingClientRect();
-    const sideBarRect = document
-      .querySelector(".side-bar")
-      .getBoundingClientRect();
-    if (avatarRect.x > sideBarRect.x) {
-      dragObject.avatar.rollback();
+  document.addEventListener("mousemove", (e) => {
+    const dragElement = DRUGSTATE.element;
+    if (dragElement) {
+      setPosition(
+        dragElement,
+        e.pageX - DRUGSTATE.offsetX,
+        e.pageY - DRUGSTATE.offsetY
+      );
     }
-    // dragObject.elem.style.display = "none";
-    // dropElem.classList.add("computer-smile");
-    // setTimeout(function () {
-    //   dropElem.classList.remove("computer-smile");
-    // }, 200);
-    console.log(dragObject, dropElem);
-  };
+  });
+  document.addEventListener("mouseup", (e) => {
+    if (DRUGSTATE.element) {
+      if (e.pageX > DOM.sideBar.getBoundingClientRect().left) {
+        DRUGSTATE.element.remove();
+      }
+      const element = findMatchMaterial(e)
+      if(element){
+        const id2 = getMaterialId(element)
+        const id1 = getMaterialId(DRUGSTATE.element)
+        const createId = findCombination(id2,id1)
+
+      }
+      DRUGSTATE.element = null;
+
+    }
+  });
 };
 const ready = async () => {
   await getData();

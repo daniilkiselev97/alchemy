@@ -51,6 +51,9 @@ main {
   flex-grow: 1;
   background-color: #f1faee;
 }
+.content .material{
+  position: absolute;
+}
 .side-bar {
   padding: 32px 18px;
   width: 260px;
@@ -87,4 +90,7 @@ main {
 }
 .draggable {
   cursor: pointer;
+}
+.hidden {
+  display: none
 }

@@ -21,6 +21,9 @@ body {
 main {
   display: flex;
 }
+.zoom{
+  cursor: pointer;
+}
 
 .data-status {
   display: flex;
@@ -51,7 +54,7 @@ main {
   flex-grow: 1;
   background-color: #f1faee;
 }
-.content .material{
+.content .material {
   position: absolute;
 }
 .side-bar {
@@ -92,5 +95,23 @@ main {
   cursor: pointer;
 }
 .hidden {
-  display: none
+  display: none;
+}
+.explosion {
+  visibility: hidden;
+  position: absolute;
+  width: 74px;
+  height: 74px;
+  transform: scale(1.5);
+}
+.frame {
+  width: 74px;
+  height: 74px;
+  line-height: 50px;
+  margin: 30px auto;
+  background: #36bc0d;
+  color: #fff;
+  text-align: center;
+  border: 1px solid #fff;
+  box-shadow: 0 0 20px #555;
 }
